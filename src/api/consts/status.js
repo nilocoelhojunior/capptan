@@ -1,0 +1,8 @@
+// @flow
+const STATUS = {
+  UNAUTHORIZED: 401,
+  PAYMENT_REQUIRED: 402,
+  REQUEST_TIMEOUT: 408,
+};
+
+export default STATUS;
