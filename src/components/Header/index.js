@@ -13,7 +13,7 @@ export default class Header extends Component<Props> {
     const { title } = this.props;
     return (
       <React.Fragment>
-        <NBHeader noShadow transparent>
+        <NBHeader noShadow transparent {...this.props}>
           <Left>
             <Button transparent>
               <VectorIcon name="sg-menu" size={22} />

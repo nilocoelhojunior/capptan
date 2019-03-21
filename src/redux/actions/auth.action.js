@@ -5,7 +5,7 @@ import type {
   RequestLoginType,
   RequestLoginErrorType,
   RequestLoginSuccessType,
-} from './auth.action.types';
+} from './auth.action.type';
 import type { UserType } from '../../api/types/user.type';
 import type { ErrorType } from '../../api/types/error.type';
 import type { LoginType } from '../../api/types/auth.type';

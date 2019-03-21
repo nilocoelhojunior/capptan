@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-import { Button, Container, Form as NBForm, Text } from 'native-base';
+import { Button, Container, Form as NBForm } from 'native-base';
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../../utils/helpers';
 
 export const Wrapper = styled(Container)`
-  padding-vertical: 10%;
+  padding-vertical: 15%;
   padding-horizontal: 18px;
 `;
 

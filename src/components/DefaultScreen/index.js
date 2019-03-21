@@ -1,29 +1,35 @@
 // @flow
 
 import React, { Component } from 'react';
+import { StatusBar } from 'react-native';
 import { Container } from 'native-base';
 
-import { Content } from './style';
-import Header from '../Header';
 import pallete from '../../theme/variables/pallete';
+import { Content } from './style';
+import { Header, HeaderSimple } from '..';
+
+import type { Props as SimpleHeaderProps } from '../HeaderSimple';
 
 type Props = {
   backgroundColor?: string,
-  header?: boolean,
+  headerStyle?: 'default' | 'simple' | 'none',
+  header: SimpleHeaderProps,
   children: React.ReactNode,
 };
 
 export default class DefaultScreen extends Component<Props> {
   static defaultProps = {
-    backgroundColor: 'white',
-    header: true,
+    backgroundColor: pallete.white,
+    headerStyle: 'default',
   };
 
   render() {
-    const { children, backgroundColor, header } = this.props;
+    const { children, backgroundColor, headerStyle, header } = this.props;
     return (
-      <Container style={{ backgroundColor }}>
-        {header && <Header {...this.props} />}
+      <Container style={{ backgroundColor: pallete.yellow }}>
+        {headerStyle === 'default' && <Header {...header} />}
+        {headerStyle === 'simple' && <HeaderSimple {...header} />}
+        <StatusBar backgroundColor={pallete.yellow} barStyle="dark-content" />
         <Content style={{ backgroundColor }}>{children}</Content>
       </Container>
     );

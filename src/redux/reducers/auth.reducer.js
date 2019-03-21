@@ -2,8 +2,8 @@
 
 import { LOGIN } from '../consts/auth.const';
 
-import type { AuthStateType } from './auth.reducer.types';
-import type { AuthActionsType } from '../actions/auth.action.types';
+import type { AuthStateType } from './auth.reducer.type';
+import type { AuthActionsType } from '../actions/auth.action.type';
 
 const initialState: AuthStateType = {
   user: null,
@@ -34,7 +34,7 @@ export default (state: AuthStateType = initialState, action: AuthActionsType) =>
         ...state,
         user: payload,
         isFetching: false,
-        error: payload,
+        error: null,
       };
     }
     default: {

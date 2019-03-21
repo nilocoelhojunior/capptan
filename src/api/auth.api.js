@@ -10,13 +10,13 @@ import type { UserType } from './types/user.type';
  * LOGIN *
  ***************** */
 
-export const loginAPI = async (body: { email: string, password: string }): Promise<UserType> => {
+export const loginAPI = (body: { email: string, password: string }): Promise<UserType> => {
   const defaultUser = {
-    name: 'Admin',
-    email: 'admin@email.com',
+    name: 'Nilo',
+    email: 'nilocoelhojunior@gmail.com',
   };
 
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     window.setTimeout(() => {
       if (body.email !== defaultUser.email || body.password !== '123456') {
         const response = {
@@ -24,7 +24,7 @@ export const loginAPI = async (body: { email: string, password: string }): Promi
           error: 'unauthorized',
           message: 'Acesso não autorizado, verifique os dados e tente novamente',
         };
-        throw new APIError(response.status, response.error, response.message || '');
+        reject(response);
       }
 
       if (body.email === defaultUser.email || body.password === '123456') {
@@ -34,4 +34,4 @@ export const loginAPI = async (body: { email: string, password: string }): Promi
   });
 };
 
-export default login;
+export default loginAPI;

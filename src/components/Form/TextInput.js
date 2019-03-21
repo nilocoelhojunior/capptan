@@ -1,7 +1,6 @@
 // @flow
 import * as React from 'react';
-import { Animated, Easing } from 'react-native';
-import { Container, Label } from 'native-base';
+import { Label } from 'native-base';
 
 import pallete from '../../theme/variables/pallete';
 import createField from './utils/createField';
