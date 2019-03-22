@@ -4,21 +4,24 @@ import { Root, StyleProvider, getTheme } from 'native-base';
 import { ThemeProvider } from 'styled-components';
 
 import configureStore from './redux/store';
-import rootSaga from './redux/sagas';
 import variables from './theme/variables/commonColor';
 import pallete from './theme/variables/pallete';
+import NavigationService from './routes/navigationService';
 
 import { AppNavigator } from './routes';
 
 const store = configureStore();
-store.runSaga(rootSaga);
 
 export default () => (
   <Provider store={store}>
     <StyleProvider style={getTheme(variables)}>
       <Root>
         <ThemeProvider theme={pallete}>
-          <AppNavigator />
+          <AppNavigator
+            ref={navigatorRef => {
+              NavigationService.setTopLevelNavigator(navigatorRef);
+            }}
+          />
         </ThemeProvider>
       </Root>
     </StyleProvider>

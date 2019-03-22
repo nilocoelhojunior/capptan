@@ -1,14 +1,14 @@
 // @flow
-import { LOGIN } from '../consts/auth.const';
+import LOGIN from '../consts/login.const';
 
 import type {
   RequestLoginType,
   RequestLoginErrorType,
   RequestLoginSuccessType,
-} from './auth.action.type';
-import type { UserType } from '../../api/types/user.type';
-import type { ErrorType } from '../../api/types/error.type';
-import type { LoginType } from '../../api/types/auth.type';
+} from './login.action.types';
+import type { UserType } from '../../api/types/user.types';
+import type { ErrorType } from '../../api/types/error.types';
+import type { LoginType } from '../../api/types/login.types';
 
 export const requestLogin = (data: LoginType): RequestLoginType => ({
   type: LOGIN.REQUEST,

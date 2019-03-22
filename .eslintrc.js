@@ -9,7 +9,8 @@ module.exports = {
   "extends": [
     "airbnb",
     "prettier",
-    "prettier/react"
+    "prettier/react",
+    "plugin:flowtype/recommended"
   ],
   "rules": {
     "react/prefer-stateless-function": [0],
@@ -32,6 +33,10 @@ module.exports = {
     ]
   },
   "plugins": [
-    "prettier"
-  ]
+    "prettier",
+    "flowtype"
+  ],
+  "globals": {
+    "__DEV__": true
+  }
 }

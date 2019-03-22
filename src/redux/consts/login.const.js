@@ -1,5 +1,7 @@
-export const LOGIN = {
+const LOGIN = {
   REQUEST: 'LOGIN/REQUEST',
   REQUEST_SUCCESS: 'LOGIN/REQUEST_SUCCESS',
   REQUEST_ERROR: 'LOGIN/REQUEST_ERROR',
 };
+
+export default LOGIN;

@@ -1,17 +1,17 @@
 // @flow
 
-import { LOGIN } from '../consts/auth.const';
+import LOGIN from '../consts/login.const';
 
-import type { AuthStateType } from './auth.reducer.type';
-import type { AuthActionsType } from '../actions/auth.action.type';
+import type { LoginStateType } from './login.reducer.types';
+import type { LoginActionsType } from '../actions/login.action.types';
 
-const initialState: AuthStateType = {
+const initialState: LoginStateType = {
   user: null,
   isFetching: false,
   error: null,
 };
 
-export default (state: AuthStateType = initialState, action: AuthActionsType) => {
+export default (state: LoginStateType = initialState, action: LoginActionsType) => {
   switch (action.type) {
     case LOGIN.REQUEST: {
       return {

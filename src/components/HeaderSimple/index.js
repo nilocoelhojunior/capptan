@@ -1,26 +1,30 @@
+// @flow
+
 import React, { Component } from 'react';
 import { Header as NBHeader, Button, Icon } from 'native-base';
 
-import VectorIcon from '../VectorIcon';
 import { Title, Left, Body, Right } from './style';
 import pallete from '../../theme/variables/pallete';
 
-export type Props = {
+type Props = {
   title: string,
-  icon: {
-    name: string,
-    fontSize: number,
-  },
+  back: Function,
 };
 
 export default class HeaderSimple extends Component<Props> {
+  pressIcon = () => {
+    const { back } = this.props;
+    back();
+  };
+
   render() {
-    const { title, icon } = this.props;
+    const { title } = this.props;
+
     return (
       <NBHeader noShadow transparent>
         <Left>
-          <Button transparent>
-            <Icon type="FontAwesome5" color={pallete.black} {...icon} />
+          <Button transparent onPress={this.pressIcon}>
+            <Icon type="FontAwesome5" color={pallete.black} name="chevron-left" fontSize={18} />
           </Button>
         </Left>
         <Body>

@@ -1,7 +1,11 @@
-import { all, fork } from 'redux-saga/effects';
+import { fork } from 'redux-saga/effects';
 
-import watchLogin from './auth.saga';
+import login from './login.saga';
+import signup from './signup.saga';
+import forgotPassword from './forgotPassword.saga';
 
 export default function* rootSaga() {
-  yield all([fork(watchLogin)]);
+  yield fork(login);
+  yield fork(forgotPassword);
+  yield fork(signup);
 }
