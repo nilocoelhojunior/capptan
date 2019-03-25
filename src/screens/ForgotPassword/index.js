@@ -11,15 +11,22 @@ import { isEmpty } from 'lodash';
 import type { NavigationNavigator } from 'react-navigation';
 import { TextInput } from '../../components';
 import { Form, Content, Wrapper, SubmitButton, Title, Loading } from './style';
-import { requestForgotPassword } from '../../redux/actions/forgotPassword.action';
+import {
+  requestForgotPassword,
+  resetForgotPassword,
+} from '../../redux/actions/forgotPassword.action';
 
 import type { ForgotPasswordType } from '../../api/types/forgotPassword.types';
 import type { ForgotPasswordStateType } from '../../redux/reducers/forgotPassword.reducer.types';
 import type { ReduxStateType } from '../../redux/reducers/reducer.types';
-import type { RequestForgotPasswordType } from '../../redux/actions/forgotPassword.action.types';
+import type {
+  RequestForgotPasswordType,
+  ResetForgotPasswordType,
+} from '../../redux/actions/forgotPassword.action.types';
 
 type Props = {
   forgotPassword: ForgotPasswordStateType,
+  resetForgotPassword: ResetForgotPasswordType,
   requestForgotPassword: RequestForgotPasswordType,
   navigation: NavigationNavigator,
 };
@@ -38,6 +45,11 @@ class ForgotPassword extends React.Component<Props, State> {
     if (!isEmpty(forgotPassword.error)) {
       this.onFailureForgotPassword();
     }
+  }
+
+  componentWillUnmount() {
+    const { resetForgotPassword: reset } = this.props;
+    reset();
   }
 
   onFailureForgotPassword = () => {
@@ -86,7 +98,6 @@ class ForgotPassword extends React.Component<Props, State> {
     <React.Fragment>
       <Text>Insira o email cadastrado para recuperar a senha</Text>
       <Formik
-        initialValues={{ email: 'nilocoelhojunior@gmail.com' }}
         validationSchema={this.validationSchema()}
         onSubmit={this.handleForgotPassword}
         render={props => (
@@ -98,7 +109,13 @@ class ForgotPassword extends React.Component<Props, State> {
               keyboardType="email-address"
               autoCapitalize="none"
             />
-            <SubmitButton title="Recuperar senha" block warning onPress={props.handleSubmit}>
+            <SubmitButton
+              title="Recuperar senha"
+              block
+              warning
+              onPress={props.handleSubmit}
+              disabled={!props.isValid}
+            >
               <Text>Confirmar</Text>
             </SubmitButton>
             <SubmitButton title="Cancelar" block light onPress={this.goBack}>
@@ -136,6 +153,7 @@ const mapStateToProps = (state: ReduxStateType) => ({
 
 const mapDispatchToProps = (dispatch: Function) => ({
   requestForgotPassword: (data: ForgotPasswordType) => dispatch(requestForgotPassword(data)),
+  resetForgotPassword: () => dispatch(resetForgotPassword()),
 });
 
 export default connect(

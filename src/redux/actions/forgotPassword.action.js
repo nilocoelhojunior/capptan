@@ -5,9 +5,14 @@ import type {
   RequestForgotPasswordType,
   RequestForgotPasswordErrorType,
   RequestForgotPasswordSuccessType,
+  ResetForgotPasswordType,
 } from './forgotPassword.action.types';
 import type { ForgotPasswordType } from '../../api/types/forgotPassword.types';
 import type { ErrorType } from '../../api/types/error.types';
+
+export const resetForgotPassword = (): ResetForgotPasswordType => ({
+  type: FORGOT_PASSWORD.RESET,
+});
 
 export const requestForgotPassword = (data: ForgotPasswordType): RequestForgotPasswordType => ({
   type: FORGOT_PASSWORD.REQUEST,

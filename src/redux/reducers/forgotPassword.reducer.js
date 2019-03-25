@@ -16,6 +16,14 @@ export default (
   action: ForgotPasswordActionsType
 ) => {
   switch (action.type) {
+    case FORGOT_PASSWORD.RESET: {
+      return {
+        ...state,
+        emailSend: false,
+        isFetching: false,
+        error: null,
+      };
+    }
     case FORGOT_PASSWORD.REQUEST: {
       return {
         ...state,

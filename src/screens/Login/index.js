@@ -7,6 +7,7 @@ import { Button, Text } from 'native-base';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { isEmpty } from 'lodash';
+import SplashScreen from 'react-native-splash-screen';
 
 import type { NavigationNavigator } from 'react-navigation';
 import logoCapptan from '../../../assets/images/logoCapptan.png';
@@ -36,6 +37,7 @@ class Login extends React.Component<Props, {}> {
   componentDidMount() {
     const { requestUserLogged: userLogged } = this.props;
     userLogged();
+    // SplashScreen.hide();
   }
 
   componentDidUpdate() {

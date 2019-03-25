@@ -19,7 +19,12 @@ export type RequestForgotPasswordErrorType = {
   payload: ErrorType,
 };
 
+export type ResetForgotPasswordType = {
+  type: FORGOT_PASSWORD.RESET,
+};
+
 export type ForgotPasswordActionsType =
   | RequestForgotPasswordType
   | RequestForgotPasswordErrorType
-  | RequestForgotPasswordSuccessType;
+  | RequestForgotPasswordSuccessType
+  | ResetForgotPasswordType;
