@@ -1,98 +1,54 @@
 // @flow
 
 import * as React from 'react';
-import { Alert } from 'react-native';
 import { connect } from 'react-redux';
-import { Text } from 'native-base';
-import { Formik } from 'formik';
-import * as yup from 'yup';
+import { Button, Text } from 'native-base';
 import { isEmpty } from 'lodash';
 
 import type { NavigationNavigator } from 'react-navigation';
-import { DefaultScreen, Loading, TextInput } from '../../components';
-import { Form, Wrapper, SubmitButton } from './style';
-import { requestSignup } from '../../redux/actions/signup.action';
+import { DefaultScreen, Loading } from '../../components';
+import { Icon, Label, Value, Wrapper, WrapperContent, WrapperIcon } from './style';
+import { requestLogout } from '../../redux/actions/auth.action';
 import { ROUTES } from '../../routes/index';
 
-import type { UserType } from '../../api/types/user.types';
-import type { LoginStateType } from '../../redux/reducers/login.reducer.types';
+import type { AuthStateType } from '../../redux/reducers/auth.reducer.types';
 import type { ReduxStateType } from '../../redux/reducers/reducer.types';
-import type { RequestSignupType } from '../../redux/actions/signup.action.types';
+import type { RequestLogoutType } from '../../redux/actions/auth.action.types';
 
 type Props = {
-  signup: LoginStateType,
-  requestSignup: RequestSignupType,
-  navigation: NavigationNavigator,
+  auth: AuthStateType,
+  requestLogout: RequestLogoutType,
 };
 
-class Signup extends React.Component<Props, {}> {
-  componentDidUpdate() {
-    const { signup } = this.props;
-    if (!isEmpty(signup.error)) {
-      this.onFailureSignup();
-    }
-  }
-
-  onFailureSignup = () => {
-    const { signup } = this.props;
-    Alert.alert('Error', signup.error.message);
-  };
-
-  handleSignup = (values: UserType) => {
-    const { requestSignup: signup } = this.props;
-    signup(values);
-  };
-
-  validationSchema = () =>
-    yup.object().shape({
-      name: yup.string().required('Insira uma nome'),
-      email: yup
-        .string()
-        .email('Digite um e-mail válido')
-        .required('Insira um E-mail'),
-      password: yup.string().required('Insira uma Senha'),
-    });
-
-  goToSignUp = () => {
-    const { navigation } = this.props;
-    navigation.navigate(ROUTES.SIGNUP);
+class Profile extends React.Component<Props, {}> {
+  handleLogout = () => {
+    const { requestLogout: logout } = this.props;
+    logout();
   };
 
   render() {
-    const { signup, navigation } = this.props;
-
+    const { auth } = this.props;
+    const { user } = auth;
     return (
-      <DefaultScreen
-        headerStyle="simple"
-        header={{ title: 'Cadastrar-se', back: navigation.goBack }}
-      >
-        {signup.isFetching && <Loading />}
+      <DefaultScreen headerStyle="simple" header={{ title: 'Perfil' }}>
+        {(auth.isFetching || isEmpty(user)) && <Loading />}
         <Wrapper>
-          <Formik
-            initialValues={{
-              name: 'Nilo',
-              password: '123456',
-              email: 'nilocoelhojunior@gmail.com',
-            }}
-            validationSchema={this.validationSchema()}
-            onSubmit={this.handleSignup}
-            render={props => (
-              <Form>
-                <TextInput name="name" label="Nome" />
-                <TextInput
-                  name="email"
-                  label="E-mail"
-                  textContentType="emailAddress"
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                />
-                <TextInput name="password" label="Senha" secureTextEntry autoCapitalize="none" />
-                <SubmitButton title="Cadastrar" block info onPress={props.handleSubmit}>
-                  <Text>Cadastrar</Text>
-                </SubmitButton>
-              </Form>
-            )}
-          />
+          {!isEmpty(user) && (
+            <React.Fragment>
+              <WrapperIcon>
+                <Icon type="FontAwesome5" name="user" />
+              </WrapperIcon>
+              <WrapperContent>
+                <Label>Nome</Label>
+                <Value>{user.name}</Value>
+                <Label>E-mail</Label>
+                <Value>{user.email}</Value>
+              </WrapperContent>
+              <Button block onPress={this.handleLogout}>
+                <Text>Sair</Text>
+              </Button>
+            </React.Fragment>
+          )}
         </Wrapper>
       </DefaultScreen>
     );
@@ -100,14 +56,14 @@ class Signup extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: ReduxStateType) => ({
-  signup: state.signup,
+  auth: state.auth,
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
-  requestSignup: (data: UserType) => dispatch(requestSignup(data)),
+  requestLogout: () => dispatch(requestLogout()),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Signup);
+)(Profile);

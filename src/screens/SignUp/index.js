@@ -11,31 +11,31 @@ import { isEmpty } from 'lodash';
 import type { NavigationNavigator } from 'react-navigation';
 import { DefaultScreen, Loading, TextInput } from '../../components';
 import { Form, Wrapper, SubmitButton } from './style';
-import { requestSignup } from '../../redux/actions/signup.action';
+import { requestSignup } from '../../redux/actions/auth.action';
 import { ROUTES } from '../../routes/index';
 
 import type { UserType } from '../../api/types/user.types';
-import type { LoginStateType } from '../../redux/reducers/login.reducer.types';
+import type { AuthStateType } from '../../redux/reducers/auth.reducer.types';
 import type { ReduxStateType } from '../../redux/reducers/reducer.types';
 import type { RequestSignupType } from '../../redux/actions/signup.action.types';
 
 type Props = {
-  signup: LoginStateType,
+  auth: AuthStateType,
   requestSignup: RequestSignupType,
   navigation: NavigationNavigator,
 };
 
 class Signup extends React.Component<Props, {}> {
   componentDidUpdate() {
-    const { signup } = this.props;
-    if (!isEmpty(signup.error)) {
+    const { auth } = this.props;
+    if (!isEmpty(auth.error)) {
       this.onFailureSignup();
     }
   }
 
   onFailureSignup = () => {
-    const { signup } = this.props;
-    Alert.alert('Error', signup.error.message);
+    const { auth } = this.props;
+    Alert.alert('Error', auth.error.message);
   };
 
   handleSignup = (values: UserType) => {
@@ -59,7 +59,7 @@ class Signup extends React.Component<Props, {}> {
   };
 
   render() {
-    const { signup, navigation } = this.props;
+    const { auth, navigation } = this.props;
 
     return (
       <DefaultScreen
@@ -69,7 +69,7 @@ class Signup extends React.Component<Props, {}> {
           left: { icon: 'chevron-left', onPress: navigation.goBack },
         }}
       >
-        {signup.isFetching && <Loading />}
+        {auth.isFetching && <Loading />}
         <Wrapper>
           <Formik
             initialValues={{
@@ -103,7 +103,7 @@ class Signup extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: ReduxStateType) => ({
-  signup: state.signup,
+  auth: state.auth,
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({

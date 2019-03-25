@@ -53,8 +53,6 @@ class ListTasks extends React.Component<Props, State> {
 
   renderSeparator = () => <Separator />;
 
-  itemsChanged = (info: { viewableItems: array, changed: array }) => console.log(info);
-
   render() {
     const { data } = this.props;
     return (
@@ -64,7 +62,6 @@ class ListTasks extends React.Component<Props, State> {
         renderItem={this.renderItem}
         ItemSeparatorComponent={this.renderSeparator}
         ListEmptyComponent={this.renderEmpty}
-        onViewableItemsChanged={this.itemsChanged}
         style={{ backgroundColor: 'white', flex: 1 }}
       />
     );

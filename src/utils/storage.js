@@ -22,6 +22,16 @@ export const getItem = async (key: string): any => {
   }
 };
 
+export const removeItem = async (key: string): any => {
+  try {
+    const value = await AsyncStorage.removeItem(`${APPKEY}:${key}`);
+    return value;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 export const getID = (): string =>
   Math.random()
     .toString(36)

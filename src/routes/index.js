@@ -9,7 +9,7 @@ import {
   createBottomTabNavigator,
 } from 'react-navigation';
 
-import { ForgotPassword, Login, Profile, Tasks, SignUp, Task, CreateTask } from '../screens';
+import { ForgotPassword, Login, Profile, Tasks, SignUp, CreateTask } from '../screens';
 import pallete from '../theme/variables/pallete';
 import { backToIndex } from './utils';
 
@@ -20,7 +20,6 @@ export const ROUTES = {
   TABS: 'capptan.TABS',
   TASKS_OPENED: 'capptan.TASKS_OPENED',
   TASKS_CLOSED: 'capptan.TASKS_CLOSED',
-  TASK: 'capptan.TASK',
   CREATE_TASK: 'capptan.CREATE_TASK',
   PROFILE: 'capptan.PROFILE',
 };
@@ -29,9 +28,6 @@ const tasksOpened = createStackNavigator(
   {
     [ROUTES.TASKS_OPENED]: {
       screen: Tasks,
-    },
-    [ROUTES.TASK]: {
-      screen: Task,
     },
     [ROUTES.CREATE_TASK]: {
       screen: CreateTask,
@@ -47,9 +43,6 @@ const tasksClosed = createStackNavigator(
   {
     [ROUTES.TASKS_CLOSED]: {
       screen: Tasks,
-    },
-    [ROUTES.TASK]: {
-      screen: Task,
     },
     [ROUTES.CREATE_TASK]: {
       screen: CreateTask,
@@ -113,7 +106,7 @@ const bottomTabs = createAppContainer(
       [ROUTES.PROFILE]: {
         screen: profile,
         navigationOptions: () => ({
-          title: 'Academy',
+          title: 'Perfil',
           tabBarIcon: ({ focused, tintColor }) => (
             <Icon type="FontAwesome5" name="user" style={{ fontSize: 18, color: tintColor }} />
           ),

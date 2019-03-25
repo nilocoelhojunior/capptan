@@ -1,24 +1,39 @@
 import styled from 'styled-components';
 
-import { Button, Container, Form as NBForm } from 'native-base';
-import { WINDOW_HEIGHT, WINDOW_WIDTH } from '../../utils/helpers';
+import { Button, Container, Content, Icon as NBIcon, Text } from 'native-base';
+
+import pallete from '../../theme/variables/pallete';
 
 export const Wrapper = styled(Container)`
   padding-horizontal: 18px;
 `;
 
-export const Logo = styled.Image.attrs({ resizeMode: 'contain' })`
-  width: ${WINDOW_WIDTH * 0.8};
-  height: ${WINDOW_HEIGHT * 0.3};
+export const WrapperContent = styled.View`
+  justify-content: center;
+  margin-vertical: 40px;
+`;
+
+export const WrapperIcon = styled.View`
+  margin-top: 40px;
+  justify-content: center;
   align-self: center;
+  align-items: center;
+  height: 120px;
+  width: 120px;
+  border-radius: 100;
+  background-color: ${pallete.yellow};
 `;
 
-export const SubmitButton = styled(Button)`
-  margin-top: 30px;
-  margin-left: 14px;
+export const Icon = styled(NBIcon)`
+  color: ${pallete.white};
+  font-size: 42px;
 `;
 
-export const Form = styled(NBForm)`
-  margin-vertical: 30px;
-  margin-left: -14px;
+export const Label = styled(Text)`
+  font-size: 14px;
+`;
+
+export const Value = styled(Text)`
+  font-size: 24px;
+  margin-bottom: 20px;
 `;

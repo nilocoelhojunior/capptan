@@ -13,21 +13,20 @@ import logoCapptan from '../../../assets/images/logoCapptan.png';
 import pallete from '../../theme/variables/pallete';
 import { DefaultScreen, Loading, TextInput } from '../../components';
 import { Form, Logo, Wrapper, SubmitButton } from './style';
-import { requestLogin, requestUserLogged } from '../../redux/actions/login.action';
+import { requestLogin, requestUserLogged } from '../../redux/actions/auth.action';
 import { ROUTES } from '../../routes/index';
 import NavigationService from '../../routes/navigationService';
-import { getItem } from '../../utils/storage';
 
 import type { LoginType } from '../../api/types/login.types';
-import type { LoginStateType } from '../../redux/reducers/login.reducer.types';
+import type { AuthStateType } from '../../redux/reducers/auth.reducer.types';
 import type { ReduxStateType } from '../../redux/reducers/reducer.types';
 import type {
   RequestLoginType,
   RequestUserLoggedType,
-} from '../../redux/actions/login.action.types';
+} from '../../redux/actions/auth.action.types';
 
 type Props = {
-  login: LoginStateType,
+  auth: AuthStateType,
   requestLogin: RequestLoginType,
   requestUserLogged: RequestUserLoggedType,
   navigation: NavigationNavigator,
@@ -40,18 +39,18 @@ class Login extends React.Component<Props, {}> {
   }
 
   componentDidUpdate() {
-    const { login } = this.props;
-    if (!isEmpty(login.error)) {
+    const { auth } = this.props;
+    if (!isEmpty(auth.error)) {
       this.onFailureLogin();
     }
-    if (!isEmpty(login.user)) {
+    if (!isEmpty(auth.user)) {
       this.goToTabs();
     }
   }
 
   onFailureLogin = () => {
-    const { login } = this.props;
-    Alert.alert('Error', login.error.message);
+    const { auth } = this.props;
+    Alert.alert('Error', auth.error.message);
   };
 
   handleLogin = (values: LoginType) => {
@@ -83,11 +82,11 @@ class Login extends React.Component<Props, {}> {
   };
 
   render() {
-    const { login } = this.props;
+    const { auth } = this.props;
 
     return (
       <DefaultScreen headerStyle="none" backgroundColor={pallete.white}>
-        {login.isFetching && <Loading header={false} />}
+        {auth.isFetching && <Loading header={false} />}
         <Wrapper>
           <Logo source={logoCapptan} />
           <Formik
@@ -123,7 +122,7 @@ class Login extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: ReduxStateType) => ({
-  login: state.login,
+  auth: state.auth,
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({

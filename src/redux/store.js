@@ -4,6 +4,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import rootReducer from './reducers';
 import rootSaga from './sagas';
+import auth from './middleware/auth';
 
 export default function configureStore(initialState = {}) {
   const sagaMiddleware = createSagaMiddleware();
@@ -11,7 +12,7 @@ export default function configureStore(initialState = {}) {
   const store = createStore(
     rootReducer,
     initialState,
-    compose(applyMiddleware(sagaMiddleware, createLogger()))
+    compose(applyMiddleware(sagaMiddleware, createLogger(), auth))
   );
 
   sagaMiddleware.run(rootSaga);

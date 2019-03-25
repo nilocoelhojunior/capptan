@@ -15,11 +15,13 @@ import { createTask } from '../../redux/actions/task.action';
 import { ROUTES } from '../../routes/index';
 
 import type { TaskType } from '../../api/types/task.types';
+import type { AuthStateType } from '../../redux/reducers/auth.reducer.types';
 import type { TaskStateType } from '../../redux/reducers/task.reducer.types';
 import type { ReduxStateType } from '../../redux/reducers/reducer.types';
 import type { CreateTaskType } from '../../redux/actions/task.action.types';
 
 type Props = {
+  auth: AuthStateType,
   task: TaskStateType,
   createTask: CreateTaskType,
   navigation: NavigationNavigator,
@@ -66,7 +68,7 @@ class CreateTask extends React.Component<Props, {}> {
     });
 
   render() {
-    const { task } = this.props;
+    const { task, auth } = this.props;
 
     return (
       <DefaultScreen
@@ -80,7 +82,7 @@ class CreateTask extends React.Component<Props, {}> {
         <Wrapper>
           <Formik
             initialValues={{
-              author: 'Nilo Coelho Junior',
+              author: auth.user.name,
               status: this.status(),
             }}
             validationSchema={this.validationSchema()}
@@ -90,7 +92,7 @@ class CreateTask extends React.Component<Props, {}> {
                 <TextInput name="title" label="Título" />
                 <TextInput name="description" label="Descrição" />
                 <TextInput name="content" label="Conteúdo" textarea />
-                <TextInput name="author" label="Autor" />
+                <TextInput name="author" label="Autor" disabled />
                 <SubmitButton
                   title="Cadastrar"
                   block
@@ -110,6 +112,7 @@ class CreateTask extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: ReduxStateType) => ({
+  auth: state.auth,
   task: state.task,
 });
 

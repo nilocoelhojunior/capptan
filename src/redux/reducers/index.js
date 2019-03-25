@@ -1,15 +1,13 @@
 import { combineReducers } from 'redux';
 
-import login from './login.reducer';
-import signup from './signup.reducer';
+import auth from './auth.reducer';
 import forgotPassword from './forgotPassword.reducer';
 import task from './task.reducer';
 import app from './app.reducer';
 
 export default combineReducers({
   app,
-  login,
-  signup,
+  auth,
   forgotPassword,
   task,
 });
