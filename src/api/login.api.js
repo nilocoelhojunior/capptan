@@ -2,18 +2,15 @@
 
 import type { UserType } from './types/user.types';
 import type { ErrorType } from './types/error.types';
-/** ****************
- * LOGIN *
- ***************** */
 
 export const loginAPI = (body: {
   email: string,
   password: string,
 }): Promise<UserType | ErrorType> => {
   const defaultUser = {
+    name: 'Nilo',
     email: 'nilocoelhojunior@gmail.com',
   };
-  console.log('loginAPI', body);
   return new Promise((resolve, reject) => {
     window.setTimeout(() => {
       if (body.email !== defaultUser.email || body.password !== '123456') {

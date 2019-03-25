@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { Label } from 'native-base';
+import { Label, Textarea } from 'native-base';
 
 import pallete from '../../theme/variables/pallete';
 import createField from './utils/createField';
@@ -12,6 +12,7 @@ type Props = {
   name: string,
   label: string,
   onChange?: (value: string) => string,
+  textarea: boolean,
 } & InjectedFieldProps;
 
 class FormTextInput extends React.PureComponent<Props> {
@@ -56,6 +57,18 @@ class FormTextInput extends React.PureComponent<Props> {
     return <Input {...props} {...inputProps} />;
   }
 
+  renderTextarea() {
+    const { value, ...props } = this.props;
+
+    const inputProps = {
+      value,
+      onChangeText: this.onChangeText,
+      underlineColorAndroid: 'transparent',
+    };
+
+    return <Textarea rowSpan={5} {...props} {...inputProps} style={{ alignSelf: 'flex-start' }} />;
+  }
+
   renderError() {
     const { error } = this.props;
     const itemError = !!error;
@@ -68,14 +81,14 @@ class FormTextInput extends React.PureComponent<Props> {
   }
 
   render() {
-    const { label, error } = this.props;
+    const { label, error, textarea } = this.props;
     const itemError = !!error;
 
     return (
       <React.Fragment>
         <Item stackedLabel error={itemError}>
           <Label style={{ color: itemError ? pallete.red : pallete.black }}>{label}</Label>
-          {this.renderInput()}
+          {textarea ? this.renderTextarea() : this.renderInput()}
         </Item>
         {this.renderError()}
       </React.Fragment>

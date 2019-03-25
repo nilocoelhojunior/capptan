@@ -1,10 +1,15 @@
-import { Body as NBBody, Title as NBTitle, Left as NBLeft, Right as NBRight } from 'native-base';
+import {
+  Body as NBBody,
+  Title as NBTitle,
+  Left as NBLeft,
+  Right as NBRight,
+  Text as NBText,
+} from 'native-base';
 
 import styled from 'styled-components';
 
 export const Title = styled(NBTitle)`
   align-self: center;
-  font-family: Roboto;
   font-weight: normal;
   font-size: 20px;
   color: white;
@@ -19,5 +24,9 @@ export const Right = styled(NBRight)`
 `;
 
 export const Body = styled(NBBody)`
-  flex: 1;
+  flex: 2;
+`;
+
+export const Text = styled(NBText)`
+  text-align: center;
 `;

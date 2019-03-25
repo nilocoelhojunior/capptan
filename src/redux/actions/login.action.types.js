@@ -20,4 +20,25 @@ export type RequestLoginErrorType = {
   payload: ErrorType,
 };
 
-export type LoginActionsType = RequestLoginType | RequestLoginErrorType | RequestLoginSuccessType;
+export type RequestUserLoggedType = {
+  type: LOGIN.USER_LOGGED_REQUEST,
+  payload: null,
+};
+
+export type RequestUserLoggedSuccessType = {
+  type: LOGIN.USER_LOGGED_SUCCESS,
+  payload: UserType,
+};
+
+export type RequestUserLoggedErrorType = {
+  type: LOGIN.USER_LOGGED_ERROR,
+  payload: any,
+};
+
+export type LoginActionsType =
+  | RequestLoginType
+  | RequestLoginErrorType
+  | RequestLoginSuccessType
+  | RequestUserLoggedType
+  | RequestUserLoggedSuccessType
+  | RequestUserLoggedErrorType;

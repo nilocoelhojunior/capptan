@@ -37,6 +37,29 @@ export default (state: LoginStateType = initialState, action: LoginActionsType) 
         error: null,
       };
     }
+    case LOGIN.USER_LOGGED_REQUEST: {
+      return {
+        ...state,
+        isFetching: true,
+        error: null,
+      };
+    }
+    case LOGIN.USER_LOGGED_ERROR: {
+      return {
+        ...state,
+        isFetching: false,
+        error: null,
+      };
+    }
+    case LOGIN.USER_LOGGED_SUCESS: {
+      const { payload } = action;
+      return {
+        ...state,
+        user: payload,
+        isFetching: false,
+        error: null,
+      };
+    }
     default: {
       return state;
     }

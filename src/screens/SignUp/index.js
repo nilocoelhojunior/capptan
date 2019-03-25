@@ -64,7 +64,10 @@ class Signup extends React.Component<Props, {}> {
     return (
       <DefaultScreen
         headerStyle="simple"
-        header={{ title: 'Cadastrar-se', back: navigation.goBack }}
+        header={{
+          title: 'Cadastrar-se',
+          left: { icon: 'chevron-left', onPress: navigation.goBack },
+        }}
       >
         {signup.isFetching && <Loading />}
         <Wrapper>

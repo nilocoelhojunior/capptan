@@ -9,8 +9,7 @@ import {
   createBottomTabNavigator,
 } from 'react-navigation';
 
-import { SideMenu } from '../components';
-import { ForgotPassword, Login, Profile, Tasks, SignUp, Task } from '../screens';
+import { ForgotPassword, Login, Profile, Tasks, SignUp, Task, CreateTask } from '../screens';
 import pallete from '../theme/variables/pallete';
 import { backToIndex } from './utils';
 
@@ -22,6 +21,7 @@ export const ROUTES = {
   TASKS_OPENED: 'capptan.TASKS_OPENED',
   TASKS_CLOSED: 'capptan.TASKS_CLOSED',
   TASK: 'capptan.TASK',
+  CREATE_TASK: 'capptan.CREATE_TASK',
   PROFILE: 'capptan.PROFILE',
 };
 
@@ -32,6 +32,9 @@ const tasksOpened = createStackNavigator(
     },
     [ROUTES.TASK]: {
       screen: Task,
+    },
+    [ROUTES.CREATE_TASK]: {
+      screen: CreateTask,
     },
   },
   {
@@ -47,6 +50,9 @@ const tasksClosed = createStackNavigator(
     },
     [ROUTES.TASK]: {
       screen: Task,
+    },
+    [ROUTES.CREATE_TASK]: {
+      screen: CreateTask,
     },
   },
   {
@@ -72,6 +78,7 @@ const bottomTabs = createAppContainer(
     {
       [ROUTES.TASKS_OPENED]: {
         screen: tasksOpened,
+        params: { status: true },
         navigationOptions: () => ({
           title: 'Pautas abertas',
           tabBarIcon: ({ focused, tintColor }) => (
@@ -88,6 +95,7 @@ const bottomTabs = createAppContainer(
       },
       [ROUTES.TASKS_CLOSED]: {
         screen: tasksClosed,
+        params: { status: false },
         navigationOptions: () => ({
           title: 'Pautas fechadas',
           tabBarIcon: ({ focused, tintColor }) => (

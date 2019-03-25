@@ -26,7 +26,7 @@ export default class DefaultScreen extends Component<Props> {
   render() {
     const { children, backgroundColor, headerStyle, header } = this.props;
     return (
-      <Container style={{ backgroundColor: pallete.yellow }}>
+      <Container style={{ backgroundColor: pallete.white }}>
         {headerStyle === 'default' && <Header {...header} />}
         {headerStyle === 'simple' && <HeaderSimple {...header} />}
         <StatusBar backgroundColor={pallete.yellow} barStyle="dark-content" />

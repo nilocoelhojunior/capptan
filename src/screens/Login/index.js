@@ -13,29 +13,39 @@ import logoCapptan from '../../../assets/images/logoCapptan.png';
 import pallete from '../../theme/variables/pallete';
 import { DefaultScreen, Loading, TextInput } from '../../components';
 import { Form, Logo, Wrapper, SubmitButton } from './style';
-import { requestLogin } from '../../redux/actions/login.action';
+import { requestLogin, requestUserLogged } from '../../redux/actions/login.action';
 import { ROUTES } from '../../routes/index';
 import NavigationService from '../../routes/navigationService';
+import { getItem } from '../../utils/storage';
 
 import type { LoginType } from '../../api/types/login.types';
 import type { LoginStateType } from '../../redux/reducers/login.reducer.types';
 import type { ReduxStateType } from '../../redux/reducers/reducer.types';
-import type { RequestLoginType } from '../../redux/actions/login.action.types';
+import type {
+  RequestLoginType,
+  RequestUserLoggedType,
+} from '../../redux/actions/login.action.types';
 
 type Props = {
   login: LoginStateType,
   requestLogin: RequestLoginType,
+  requestUserLogged: RequestUserLoggedType,
   navigation: NavigationNavigator,
 };
 
 class Login extends React.Component<Props, {}> {
+  componentDidMount() {
+    const { requestUserLogged: userLogged } = this.props;
+    userLogged();
+  }
+
   componentDidUpdate() {
     const { login } = this.props;
     if (!isEmpty(login.error)) {
       this.onFailureLogin();
     }
     if (!isEmpty(login.user)) {
-      NavigationService.reset(ROUTES.TABS);
+      this.goToTabs();
     }
   }
 
@@ -68,12 +78,16 @@ class Login extends React.Component<Props, {}> {
     navigation.push(ROUTES.FORGOT_PASSWORD);
   };
 
+  goToTabs = () => {
+    NavigationService.reset(ROUTES.TABS);
+  };
+
   render() {
     const { login } = this.props;
 
     return (
       <DefaultScreen headerStyle="none" backgroundColor={pallete.white}>
-        {login.isFetching && <Loading />}
+        {login.isFetching && <Loading header={false} />}
         <Wrapper>
           <Logo source={logoCapptan} />
           <Formik
@@ -114,6 +128,7 @@ const mapStateToProps = (state: ReduxStateType) => ({
 
 const mapDispatchToProps = (dispatch: Function) => ({
   requestLogin: (data: LoginType) => dispatch(requestLogin(data)),
+  requestUserLogged: () => dispatch(requestUserLogged()),
 });
 
 export default connect(

@@ -4,10 +4,6 @@ import { isEmpty } from 'lodash';
 import type { UserType } from './types/user.types';
 import type { ErrorType } from './types/error.types';
 
-/** ****************
- * LOGIN *
- ***************** */
-
 export const singupAPI = (user: UserType): Promise<UserType | ErrorType> =>
   new Promise((resolve, reject) => {
     window.setTimeout(() => {
@@ -19,7 +15,8 @@ export const singupAPI = (user: UserType): Promise<UserType | ErrorType> =>
         };
         reject(response);
       }
-      resolve(user);
+      const response = { email: user.email, name: user.name };
+      resolve(response);
     }, 1500);
   });
 
